@@ -36,5 +36,10 @@ this is a project for learning ES6
 
 ## 使用到了express ejs 模板引擎 所以这里使用
     全局安装 express模块  npm install -g express-generator 使用
-    这个命里 安装完毕使用 express -v 查看安装情况;
+    这个命里 安装完毕使用 express -v 查看安装情况
+
+## 在安装外层的 依赖之后 使用gulp --watch 
+   依然报错是因为在serve 目录下面依然需要安装依赖
+
+##
 
