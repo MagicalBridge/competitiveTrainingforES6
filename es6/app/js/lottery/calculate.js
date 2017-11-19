@@ -1,7 +1,7 @@
 class Calculate {
     /**
-     * [computeCount 计算注释]
-     * @param {number} active [当前选中的号码]
+     * [computeCount 计算注数]
+     * @param {number} active [当前选中的号码的个数]
      * @param {string} play_name [当前玩法标识]
      * @return {number}      {注数}
      */
@@ -74,7 +74,7 @@ class Calculate {
                 max = 1;
             }
         }
-        return [min, max].map(item => * self.play_list.get(play_name).bonus);
+        return [min, max].map(item => item * self.play_list.get(play_name).bonus);
     }
 
     // 如果使用 类名引用的这个方法肯定是静态方法 这里的combine方法就是静态方法
@@ -85,17 +85,18 @@ class Calculate {
      * @return {number}      {计算的注数}
      */
     static combine(arr, size) {
+        // 这个allReault 用来保存最终的结果的数组
         let allResult = [];
+        // 即时运行函数 
         (function f(arr, size, result) {
-            // 将数组的长度赋值给arrLen;
+            // 判断当前传入的数组的长度 将数组的长度赋值给arrLen;
             let arrLen = arr.length;
-            // 如果size 大于数组的长度 递归运算需要截止
+            // 如果传入的数组的长度小于size 递归运算需要截止
             if (size > arrLen) {
                 return;
             }
-            // 如果最后传入的 size 等于数组的长度了
+            // 如果最后传入的 size 等于数组的长度了 将最后的数组和
             if (size === arrLen) {
-
                 allResult.push([].concat(result, arr));
             } else {
                 for (let i = 0; i < arrLen; i++) {

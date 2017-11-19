@@ -55,11 +55,7 @@
 
 	__webpack_require__(2);
 
-	var _lottery = __webpack_require__(328);
-
-	var _lottery2 = _interopRequireDefault(_lottery);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	__webpack_require__(328);
 
 /***/ }),
 /* 2 */
@@ -9194,244 +9190,57 @@
 
 /***/ }),
 /* 328 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	__webpack_require__(329);
-
-	__webpack_require__(330);
-
-	__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./lottery/calculate.js\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-
-	__webpack_require__(332);
-
-/***/ }),
-/* 329 */
 /***/ (function(module, exports) {
 
+	// 全局作用域 函数作用域
+
+
+	/*
+	1.这里面涉及的块级作用域, 大括号包裹的地方都是块级作用域的
+	范围内部, for循环的内部也算是块级作用域的范围,
+	在块级作用域外部访问内部的变量会报错;
+	2.es6 是默认开启严格模式的，严格模式下变量，没有声明就引用
+	  会报 引用错误 而不是报undefined；
+	3.使用let 变量不能重复声明;
+	4.使用const声明的常量是不能修改的；同样也是有块级作用域的概念的;声明必须赋值;
+	5.对象是引用类型，最后的返回值是对象内存中的指针,指针是不能变化的 但是对象本身是可以变化的；
+	*/
+
+	// es5 写法
+	// function testes5() {
+	//     for (var i = 1; i < 3; i++) {
+	//         console.log('es5 ' + i); // 1,2
+	//     }
+	//     console.log('es5 ' + i); //3;
+	// }
+
+	//es6 写法
+	// function testes6() {
+	//     for (let i = 1; i < 3; i++) {
+	//         console.log('es6 ' + i); // 1,2
+	//     }
+	//     console.log('es6 ' + i); // 报错;
+	// }
+
+
+	// function constant() {
+	//     const PI = 3.1415926;
+	//     const k = {
+	//         a: 1
+	//     }
+	//     k.b = 3;
+	//     console.log(PI, k);
+	// }
+
+
+	// testes5();
+	// testes6();
+	// constant();
+	// {
+	//     const arr = new Array(4).fill("0");
+	//     console.log(arr);
+	// }
 	"use strict";
-
-/***/ }),
-/* 330 */
-/***/ (function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	// 创建一个时间类
-	var Timer = function () {
-	    function Timer() {
-	        _classCallCheck(this, Timer);
-	    }
-
-	    _createClass(Timer, [{
-	        key: 'countdown',
-
-	        // 创建一个倒计时函数 接收三个参数 截止时间 更新回调完成倒计时之后的回调
-	        value: function countdown(end, update, handle) {
-	            // 获取当前的时间
-	            var now = new Date().getTime();
-	            // 保存当前的指针
-	            var self = this;
-	            // 如果当前时间 减去结束时间大于零 说明活动已经结束
-	            // 在当前作用域内部改变handle的指向 同时执行倒计时结束的事件回调
-	            if (now - end) {
-	                handle.call(self);
-	            } else {
-	                // 如果活动没有结束 判断当前的时间距离结束时间的剩余时间
-	                var last_time = end - now;
-	                // 设置一个常量 记录一天的毫秒数 一个小时的毫秒数 一分钟 一秒
-	                var px_d = 1000 * 60 * 60 * 24;
-	                var px_h = 1000 * 60 * 60;
-	                var px_m = 1000 * 60;
-	                var px_s = 1000;
-
-	                // 剩余的时间包含多少天 多少小时 多少分钟  多少秒
-	                var d = Math.floor(last_time / px_d);
-	                // 当前的毫秒数时间减去一天的毫秒数 剩余的时间 用于计算剩余多少小时
-	                var h = Math.floor((last_time - d * px_d) / px_h);
-	                var m = Math.floor((last_time - d * px_d - h * px_h) / px_m);
-	                var s = Math.floor((last_time - d * px_d - h * px_h - s * px_s) / px_s);
-	                // 创建空数组保存拼接的字符串
-	                var r = [];
-	                // 做一个判断 如果计算出来的day 大于零 说明活动的时间倒计时很大
-	                if (d > 0) {
-	                    // 数组中添加 倒计时天数 模板
-	                    r.push('<em>' + d + '</em>\u5929');
-	                };
-	                // 如果数组的长度是零 说明 剩余时间不足天 但是又要保证 剩余时间用于保存小时数;
-	                if (r.length || h > 0) {
-	                    // 数组中添加 倒计时小时数 模板
-	                    r.push('<em>' + h + '</em>\u65F6');
-	                }
-	                if (r.length || m > 0) {
-	                    // 数组中添加 倒计时小时数 模板
-	                    r.push('<em>' + m + '</em>\u5206');
-	                }
-	                if (r.length || s > 0) {
-	                    // 数组中添加 倒计时小时数 模板
-	                    r.push('<em>' + s + '</em>\u79D2');
-	                }
-	                // 将这个值保存到对象的last——time属性上面
-	                self.last_time = r.join('');
-	                // 完成当前的更新
-	                update.call(self, r.join(''));
-
-	                // 一秒钟执行一次时间更新
-	                setTimeout(function () {
-	                    self.countdown(end, update, handle);
-	                }, 1000);
-	            }
-	        }
-	    }]);
-
-	    return Timer;
-	}();
-
-	exports.default = Timer;
-
-/***/ }),
-/* 331 */,
-/* 332 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _jquery = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"jquery\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-
-	var _jquery2 = _interopRequireDefault(_jquery);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	// 引入jq 模块使用ajax
-
-	var Interface = function () {
-	    function Interface() {
-	        _classCallCheck(this, Interface);
-	    }
-
-	    _createClass(Interface, [{
-	        key: 'getOmit',
-
-	        /**
-	         * [getOmit 获取遗漏数据函数]
-	         * @param {string} issue [当前期号]
-	         * @return {[type]}      {description}
-	         */
-	        value: function getOmit(issue) {
-	            // 使用let 创建self 变量指向当前的对象的引用
-	            var self = this;
-	            // getOmit 这个方法返回的不是空 也不是false 而是一个promise对象
-	            // 这个对象是为了 一个异步操作 getOmit 这个方法是为了获取遗漏数据的
-	            // 从前端发起请求 到服务端给我操作 我期间还需要进行下一步操作；
-	            // 传统的方法是给 getOmit 方法传入一个参数 callback 回调参数
-	            // 现在promise可以解决这个问题
-	            // promise 对象接收练个参数 resolve 一个是 reject
-	            return new Promise(function (resolve, reject) {
-	                _jquery2.default.ajax({
-	                    url: './get/omit',
-	                    data: {
-	                        issue: issue
-	                    },
-	                    dataType: "json",
-	                    success: function success(res) {
-	                        // 获取到的数据保存起来到当前对象上面 方便其他的引用
-	                        // setOmit 是一个方法
-	                        self.setOmit(res.data);
-	                        // 成功回调的时候 使用resolve
-	                        resolve.call(self, res);
-	                    },
-	                    error: function error(err) {
-	                        reject.call();
-	                    }
-	                });
-	            });
-	        }
-
-	        /**
-	         * [getOpenCode 获取开奖号码接口]
-	         * @param {string} issue [当前期号]
-	         * @return {[type]}      {description}
-	         */
-
-	    }, {
-	        key: 'getOpenCode',
-	        value: function getOpenCode(issue) {
-	            // 使用let 创建self 变量指向当前的对象的引用
-	            var self = this;
-	            return new Promise(function (resolve, reject) {
-	                _jquery2.default.ajax({
-	                    url: './get/opencode',
-	                    data: {
-	                        issue: issue
-	                    },
-	                    dataType: "json",
-	                    success: function success(res) {
-	                        // 获取到的数据保存起来到当前对象上面 方便其他的引用
-	                        // setOpenCode 是一个方法
-	                        self.setOpenCode(res.data);
-	                        // 成功回调的时候 使用resolve
-	                        resolve.call(self, res);
-	                    },
-	                    error: function error(err) {
-	                        reject.call();
-	                    }
-	                });
-	            });
-	        }
-
-	        /**
-	         * [getState 获取当前状态的接口]
-	         * @param {string} issue [当前期号]
-	         * @return {[type]}      {description}
-	         * 11选5 每十分钟 开奖一期 销售完之后 开出号码进入下面一期
-	         * 每个状态 数据都和当期的整个期号密切相关
-	         */
-
-	    }, {
-	        key: 'getState',
-	        value: function getState(issue) {
-	            // 使用let 创建self 变量指向当前的对象的引用
-	            var self = this;
-	            return new Promise(function (resolve, reject) {
-	                _jquery2.default.ajax({
-	                    url: './get/state',
-	                    data: {
-	                        issue: issue
-	                    },
-	                    dataType: "json",
-	                    success: function success(res) {
-	                        // 成功回调的时候 使用resolve
-	                        resolve.call(self, res);
-	                    },
-	                    error: function error(err) {
-	                        reject.call();
-	                    }
-	                });
-	            });
-	        }
-	    }]);
-
-	    return Interface;
-	}();
-
-	exports.default = Interface; // 导出当前的接口
 
 /***/ })
 /******/ ]);

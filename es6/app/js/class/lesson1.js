@@ -14,34 +14,38 @@
 */
 
 // es5 写法
-function testes5() {
-    for (var i = 1; i < 3; i++) {
-        console.log('es5 ' + i); // 1,2
-    }
-    console.log('es5 ' + i); //3;
-}
+// function testes5() {
+//     for (var i = 1; i < 3; i++) {
+//         console.log('es5 ' + i); // 1,2
+//     }
+//     console.log('es5 ' + i); //3;
+// }
 
 //es6 写法
-function testes6() {
-    for (let i = 1; i < 3; i++) {
-        console.log('es6 ' + i); // 1,2
-    }
-    console.log('es6 ' + i); // 报错;
-}
+// function testes6() {
+//     for (let i = 1; i < 3; i++) {
+//         console.log('es6 ' + i); // 1,2
+//     }
+//     console.log('es6 ' + i); // 报错;
+// }
 
 
 
 
-function constant() {
-    const PI = 3.1415926;
-    const k = {
-        a: 1
-    }
-    k.b = 3;
-    console.log(PI, k);
-}
+// function constant() {
+//     const PI = 3.1415926;
+//     const k = {
+//         a: 1
+//     }
+//     k.b = 3;
+//     console.log(PI, k);
+// }
 
 
 // testes5();
 // testes6();
-constant();
+// constant();
+// {
+//     const arr = new Array(4).fill("0");
+//     console.log(arr);
+// }
