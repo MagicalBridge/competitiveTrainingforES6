@@ -19,7 +19,7 @@ class Calculate {
         // 如果这种玩法存在并且这种玩法的字符串的首字母是用r开头的
         if (exist && play_name.at(0) === 'r') {
             // 执行combine方法 接收两个参数 数组和玩法的字符串的第二个字符;对count赋值
-            count = Calculate.combine(arr, play_name.split('')[1]);
+            count = Calculate.combine(arr, play_name.split('')[1]).length;
         }
         return count;
     }
@@ -36,9 +36,9 @@ class Calculate {
         // 保存当前的对象引用指针;
         const self = this;
         // 创建一个数组 传入的参数是 分割后的第二个值 ['r','2'];
-        let arr = new Array(play[1] * 1).fill('0');
+        let arr = new Array(play[1] * 1).fill(0);
         let min, max;
-        if (paly[0] === 'r') {
+        if (play[0] === 'r') {
             // 设置一个最小命中数;
             let min_active = 5 - (11 - active);
             // 最小命中数大于零;
@@ -49,7 +49,7 @@ class Calculate {
                 } else {
                     if (play[1] - 5 > 0 && active - play[1] >= 0) {
                         arr = new Array(active - 5).fill(0);
-                        min = Calculate.combine(arr.play[1] - 5).length;
+                        min = Calculate.combine(arr, play[1] - 5).length;
                     } else {
                         min = active - play[1] > -1 ? 1 : 0;
                     }
@@ -112,6 +112,7 @@ class Calculate {
                 }
             }
         })(arr, size, [])
+        return allResult
 
     }
 

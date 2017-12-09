@@ -8,7 +8,7 @@ class Timer {
         const self = this;
         // 如果当前时间 减去结束时间大于零 说明活动已经结束
         // 在当前作用域内部改变handle的指向 同时执行倒计时结束的事件回调
-        if (now - end) {
+        if (now - end > 0) {
             handle.call(self);
         } else {
             // 如果活动没有结束 判断当前的时间距离结束时间的剩余时间
@@ -24,7 +24,7 @@ class Timer {
             // 当前的毫秒数时间减去一天的毫秒数 剩余的时间 用于计算剩余多少小时
             let h = Math.floor((last_time - d * px_d) / px_h);
             let m = Math.floor((last_time - d * px_d - h * px_h) / px_m);
-            let s = Math.floor((last_time - d * px_d - h * px_h - s * px_s) / px_s);
+            let s = Math.floor((last_time - d * px_d - h * px_h - m * px_m) / px_s);
             // 创建空数组保存拼接的字符串
             let r = [];
             // 做一个判断 如果计算出来的day 大于零 说明活动的时间倒计时很大
