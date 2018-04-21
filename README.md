@@ -40,6 +40,5 @@ this is a project for learning ES6
 
 ## 在安装外层的 依赖之后 使用gulp --watch 
    依然报错是因为在serve 目录下面依然需要安装依赖
-
-##
+   在浏览器输入localhost:3000 进行相应的学习情况。
 
